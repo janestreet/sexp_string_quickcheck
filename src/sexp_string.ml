@@ -9,11 +9,8 @@ let quickcheck_generator =
   Quickcheck.Generator.recursive_union
     [ [%quickcheck.generator: Atom_string.t] ]
     ~f:(fun self ->
-      [ (match%bind.Quickcheck.Generator [%quickcheck.generator: bool] with
-          | true -> self
-          | false ->
-            let%map.Quickcheck.Generator subsexps = Quickcheck.Generator.list self in
-            String.concat ~sep:" " (List.concat [ [ "(" ]; subsexps; [ ")" ] ]))
+      [ (let%map.Quickcheck.Generator subsexps = Quickcheck.Generator.list self in
+         String.concat ~sep:" " (List.concat [ [ "(" ]; subsexps; [ ")" ] ]))
       ])
   |> Quickcheck.Generator.filter ~f:does_parse
 ;;
