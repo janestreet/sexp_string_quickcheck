@@ -1,4 +1,4 @@
-open! Core_kernel
+open! Core
 open! Import
 
 type t = string [@@deriving sexp_of]
