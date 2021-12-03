@@ -11,10 +11,10 @@ build: [
 ]
 depends: [
   "ocaml" {>= "4.08.0"}
-  "core_kernel"
+  "core"
   "parsexp"
   "ppx_jane"
-  "dune"        {>= "2.0.0"}
+  "dune"     {>= "2.0.0"}
 ]
 synopsis: "Quickcheck helpers for strings parsing to sexps"
 description: "
