@@ -46,7 +46,7 @@ let in_quoted_string generators =
 let line_break = Quickcheck.Generator.of_list [ "\n"; "\r\n" ]
 
 let backslash_newline =
-  let%map.Quickcheck.Generator line_break = line_break
+  let%map.Quickcheck.Generator line_break
   and whitespace = very_short_string Char.gen_whitespace in
   [%string {|\%{line_break}%{whitespace}|}]
 ;;
@@ -74,7 +74,7 @@ let line_comments =
   with_affix
     (let%map.Quickcheck.Generator comment = lorem_ipsum
      and num_semicolons = Base_quickcheck.Generator.int_uniform_inclusive 1 3
-     and line_break = line_break in
+     and line_break in
      let semicolons = String.make num_semicolons ';' in
      [%string {|%{semicolons}%{comment}%{line_break}|}])
   |> Quickcheck.Generator.filter ~f:does_parse
