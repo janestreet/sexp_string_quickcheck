@@ -4,5 +4,5 @@ open! Import
 type t = string [@@deriving quickcheck, sexp_of]
 
 module Compare_sexps : sig
-  type nonrec t = t [@@deriving compare]
+  type nonrec t = t [@@deriving compare ~localize]
 end

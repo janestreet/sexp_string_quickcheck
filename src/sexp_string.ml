@@ -24,7 +24,11 @@ let quickcheck_observer = Quickcheck.Observer.of_hash (module String)
 module Compare_sexps = struct
   type nonrec t = t
 
-  let compare a b =
-    Comparable.lift [%compare: Sexp.t list] ~f:Parsexp.Many.parse_string_exn a b
+  let%template[@mode m = (local, global)] compare a b =
+    (Comparable.lift [@mode m])
+      ([%compare: Sexp.t list] [@mode.explicit m])
+      ~f:(fun s -> Parsexp.Many.parse_string_exn s)
+      a
+      b
   ;;
 end
